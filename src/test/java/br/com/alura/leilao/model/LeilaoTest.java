@@ -4,10 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Nested;
 
 public class LeilaoTest {
-	
+
+	@Nested
+    @DisplayName("Dado um lance válido")
 	@Test
     public void deveReceberUmLance() {
         Leilao leilao = new Leilao("Macbook Pro 15");

@@ -17,10 +17,10 @@ public class PropondoLanceSteps {
     @Given("Dado um lance valido")
     public void dado_um_lance_valido() {
         Usuario usuario = new Usuario("Meridiane");
-        lance = new Lance(usuario, BigDecimal.TWO);
+        lance = new Lance(usuario, BigDecimal.TEN);
     }
 
-    @When("Quando propoe o lance")
+    @When("Quando propoe o lance ao leilao")
     public void quando_propoe_o_lance() {
         leilao = new Leilao("leilao");
         leilao.propoe(lance);
@@ -28,7 +28,7 @@ public class PropondoLanceSteps {
     @Then("Entao o lance eh aceito")
     public void entao_o_lance_eh_aceito() {
         Assert.assertEquals(1, leilao.getLances().size());
-        Assert.assertEquals(BigDecimal.TWO, leilao.getLances().get(0).getValor());
+        Assert.assertEquals(BigDecimal.TEN, leilao.getLances().get(0).getValor());
     }
 
 }

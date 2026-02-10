@@ -1,6 +1,6 @@
 package br.com.alura.leilao.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 
@@ -105,6 +105,81 @@ public class LeilaoTest {
 
         assertEquals(10, leilao.getLances().size());
         assertEquals(new BigDecimal("11000.0"), leilao.getLances().get(leilao.getLances().size()-1).getValor());
+    }
+
+    @Test
+    public void deveRetornarTrueEAceitarPrimeiroLance() {
+        Leilao leilao = new Leilao("iPhone 15");
+        BigDecimal mil = new BigDecimal("1000.0");
+
+        boolean aceito = leilao.propoe(new Lance(new Usuario("Alice"), mil));
+
+        assertTrue(aceito);
+        assertEquals(1, leilao.getLances().size());
+        assertEquals(mil, leilao.getLances().get(0).getValor());
+    }
+
+    @Test
+    public void deveRetornarFalseQuandoValorDoLanceNaoForMaiorQueAnterior() {
+        Leilao leilao = new Leilao("PlayStation 5");
+        BigDecimal doisMil = new BigDecimal("2000.0");
+        BigDecimal igual = new BigDecimal("2000.0");
+        BigDecimal menor = new BigDecimal("1999.9");
+
+        assertTrue(leilao.propoe(new Lance(new Usuario("Bob"), doisMil)));
+        assertFalse(leilao.propoe(new Lance(new Usuario("Carol"), igual))); // igual deve ser rejeitado
+        assertFalse(leilao.propoe(new Lance(new Usuario("Dave"), menor))); // menor deve ser rejeitado
+
+        assertEquals(1, leilao.getLances().size());
+        assertEquals(doisMil, leilao.getLances().get(0).getValor());
+    }
+
+    @Test
+    public void deveRetornarFalseParaDoisLancesSeguidosDoMesmoUsuario() {
+        Leilao leilao = new Leilao("Nintendo Switch");
+        Usuario eve = new Usuario("Eve");
+        BigDecimal mil = new BigDecimal("1000.0");
+        BigDecimal doisMil = new BigDecimal("2000.0");
+
+        assertTrue(leilao.propoe(new Lance(eve, mil)));
+        boolean aceito = leilao.propoe(new Lance(eve, doisMil));
+
+        assertFalse(aceito);
+        assertEquals(1, leilao.getLances().size());
+        assertEquals(mil, leilao.getLances().get(0).getValor());
+    }
+
+    @Test
+    public void devePermitirAteCincoLancesDoMesmoUsuarioMasRejeitarOSexto() {
+        Leilao leilao = new Leilao("Macbook Air");
+        Usuario ana = new Usuario("Ana");
+        Usuario bruno = new Usuario("Bruno");
+
+        // alterna lances para permitir que Ana alcance 5 lances válidos
+        assertTrue(leilao.propoe(new Lance(ana, new BigDecimal("1000.0"))));
+        assertTrue(leilao.propoe(new Lance(bruno, new BigDecimal("1100.0"))));
+        assertTrue(leilao.propoe(new Lance(ana, new BigDecimal("1200.0"))));
+        assertTrue(leilao.propoe(new Lance(bruno, new BigDecimal("1300.0"))));
+        assertTrue(leilao.propoe(new Lance(ana, new BigDecimal("1400.0"))));
+        assertTrue(leilao.propoe(new Lance(bruno, new BigDecimal("1500.0"))));
+        assertTrue(leilao.propoe(new Lance(ana, new BigDecimal("1600.0"))));
+        assertTrue(leilao.propoe(new Lance(bruno, new BigDecimal("1700.0"))));
+        assertTrue(leilao.propoe(new Lance(ana, new BigDecimal("1800.0")))); // 5º lance da Ana
+        assertTrue(leilao.propoe(new Lance(bruno, new BigDecimal("1900.0"))));
+
+        // 6º lance da Ana deve ser rejeitado
+        boolean aceito = leilao.propoe(new Lance(ana, new BigDecimal("2000.0")));
+        assertFalse(aceito);
+    }
+
+    @Test
+    public void listaDeLancesDeveSerImutavel() {
+        Leilao leilao = new Leilao("Kindle");
+        assertTrue(leilao.propoe(new Lance(new Usuario("Nina"), new BigDecimal("500.0"))));
+
+        assertThrows(UnsupportedOperationException.class, () -> {
+            leilao.getLances().add(new Lance(new Usuario("Otto"), new BigDecimal("600.0")));
+        });
     }
 
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Nested;
 public class LeilaoTest {
 
 	@Nested
-    @DisplayName("Dado um lance válido")
+    @DisplayName("Dado um lance valido")
 	@Test
     public void deveReceberUmLance() {
         Leilao leilao = new Leilao("Macbook Pro 15");

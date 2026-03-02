@@ -1,11 +1,12 @@
 Feature: Propondo lances ao leilao
 
 Scenario: Propondo um unico lance valido
-Given Dado um lance valido
-When Quando propoe o lance ao leilao
-Then Entao o lance eh aceito
+Given Um lance valido
+When Propoe o lance ao leilao
+Then O lance eh aceito
 
 Scenario: Propondo varios lances validos
-Given Dado varios lances validos
-When Quando propoe varios lances ao leilao
-Then Entao os lances sao aceitos
+Given Um lance de 10.0 reais do usuario "fulano"
+And Um lance de 15.0 reais do usuario "beltrano"
+When Propoe varios lances ao leilao
+Then Os lances sao aceitos

@@ -10,3 +10,13 @@ Given Um lance de 10.0 reais do usuario "fulano"
 And Um lance de 15.0 reais do usuario "beltrano"
 When Propoe varios lances ao leilao
 Then Os lances sao aceitos
+
+Scenario Outline: Propondo um lance invalido
+Given Um lance invalido de <valor> reais
+When Propoe o lance ao leilao
+Then O lance nao eh aceito
+
+Examples:
+   | valor |
+   |    0 |
+   |   -1 |

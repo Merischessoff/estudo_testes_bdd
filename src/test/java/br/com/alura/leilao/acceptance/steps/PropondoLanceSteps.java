@@ -64,4 +64,13 @@ public class PropondoLanceSteps {
         Assert.assertEquals(this.lista.get(1).getValor(), leilao.getLances().get(1).getValor());
     }
 
+    @Given("Um lance invalido de {double} reais")
+    public void um_lance_ivalido_de_reais(Double valor) {
+        System.out.println(valor);
+    }
+
+    @Then("O lance nao eh aceito")
+    public void o_lance_nao_eh_aceito() {
+    }
+
 }

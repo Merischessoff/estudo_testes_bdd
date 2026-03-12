@@ -12,11 +12,11 @@ When Propoe varios lances ao leilao
 Then Os lances sao aceitos
 
 Scenario Outline: Propondo um lance invalido
-Given Um lance invalido de <valor> reais
+Given Um lance invalido de <valor> reais e do usuario '<nomeUsuario>'
 When Propoe o lance ao leilao
 Then O lance nao eh aceito
 
 Examples:
-   | valor |
-   |    0 |
-   |   -1 |
+| valor | nomeUsuario |
+|   0  | beltrano |
+|  -1  | cicrano |

@@ -2,8 +2,8 @@ package br.com.alura.leilao.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

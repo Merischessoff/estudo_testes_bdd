@@ -3,11 +3,12 @@ package br.com.alura.leilao.mudi.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
+
 
 import br.com.alura.leilao.model.Lance;
 import br.com.alura.leilao.model.Usuario;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 
 public class NovoLanceDto {
 	

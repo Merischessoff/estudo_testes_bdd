@@ -2,17 +2,17 @@ package br.com.alura.leilao.e2e.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class BrowserFactory {
 
-//  Documentação
-//	http://chromedriver.storage.googleapis.com/index.html
-//	https://github.com/mozilla/geckodriver/releases	
-
 	public WebDriver createWebDriver() {
-		String webdriver = System.getProperty("browser", "htmlunit");
+		// Por padrão, vamos usar o Chrome, que é mais estável para E2E
+		String webdriver = System.getProperty("browser", "chrome");
+
 		switch (webdriver) {
 			case "firefox":
 				return initFirefoxDriver();
@@ -23,16 +23,19 @@ public class BrowserFactory {
 		}
 	}
 
-	private  WebDriver initChromeDriver() {
-		System.setProperty("webdriver.chrome.driver",
-				"\\home\\meri\\work-space-java\\estudo_testes_bdd\\drivers\\chromedriver.exe");
+	private WebDriver initChromeDriver() {
+		// Não precisa mais de System.setProperty("webdriver.chrome.driver", ...)
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
 
-		return new ChromeDriver();
+		// Se o erro de "Unable to obtain: chromedriver" persistir,
+		// tente rodar em modo headless (sem janela) descomentando a linha abaixo:
+		// options.addArguments("--headless=new");
+
+		return new ChromeDriver(options);
 	}
 
-	private  WebDriver initFirefoxDriver() {
-		System.setProperty("webdriver.gecko.driver",
-				"\\home\\meri\\work-space-java\\estudo_testes_bdd\\drivers\\geckodriver.exe");
+	private WebDriver initFirefoxDriver() {
 		return new FirefoxDriver();
 	}
 }

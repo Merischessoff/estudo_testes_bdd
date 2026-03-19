@@ -22,8 +22,8 @@ public class LoginPage {
 		driver.get(URL_LOGIN_PAGE);
 
 		// No Spring Security 6, o padrão dos nomes dos campos continua sendo username e password
-		WebElement txtNome = driver.findElement(By.name("username"));
-		WebElement txtSenha = driver.findElement(By.name("password")); // Renomeado de txtEmail para txtSenha para clareza
+		WebElement txtNome = driver.findElement(By.id("username"));
+		WebElement txtSenha = driver.findElement(By.id("password")); // Renomeado de txtEmail para txtSenha para clareza
 
 		txtNome.sendKeys(nome);
 		txtSenha.sendKeys(senha);

@@ -37,16 +37,9 @@ public class LoginPage {
 		return realizaLoginComo("fulano", "pass");
 	}
 
-	public boolean estaNaPaginaDeLeiloes() {
-		this.esperaCarregarPaginaDeLeiloes();
-		return this.driver.getCurrentUrl().endsWith("/leiloes");
-	}
 
-	public void esperaCarregarPaginaDeLeiloes() {
-		// AJUSTE AQUI: No Selenium 4 usamos Duration.ofSeconds(10)
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[contains(text(),'Todos leilões')]")));
-	}
+
+
 
 	public boolean estaNaPaginaDeLoginComErro() {
 		return this.driver.getCurrentUrl().endsWith("/login?error");
